@@ -5,12 +5,16 @@ var NativeBridge = {
   
   // Automatically called by native layer when a result is available
   resultForCallback : function resultForCallback(callbackId, resultArray) {
-    try {
-    var callback = NativeBridge.callbacks[callbackId];
-    if (!callback) return;
-    
-    callback.apply(null,resultArray);
-    } catch(e) {alert(e)}
+    try
+      {
+       var callback = NativeBridge.callbacks[callbackId];
+       if (!callback) return;
+       callback.apply(null,resultArray);
+      }
+    catch(e)
+      {
+          alert(e)
+      }
   },
   
   // Use this in javascript to request native objective-c code

@@ -13,6 +13,6 @@
     SBJSON *json;
    
 }
-
+- (void)myLoadRequest:(NSURLRequest *)request;
 
 @end

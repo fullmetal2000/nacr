@@ -12,7 +12,8 @@
     
     
     IBOutlet UIView *menuView;
-   
+    NSString *string2;
+    int currentpage;
 }
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;

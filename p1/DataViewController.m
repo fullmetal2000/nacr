@@ -14,10 +14,40 @@
 
 @implementation DataViewController
 @synthesize webView, dataObject;
+
+- (void)loadView1 {
+    CGRect frame=[UIScreen mainScreen].applicationFrame;    
+    self.view = [[myWebView alloc] initWithFrame:frame];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+//
+    webView= [[myWebView alloc] init];
+    self.view = webView;
+    
+
+    
+    NSString * string1;
+    string2=string1;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificatRecieved:)
+                                                 name:@"testNotification" object:string1];
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
+}
+-(void)notificatRecieved:(NSNotification*)notification{
+    NSLog(@"Notificaiton was recieved from view 2");
+    NSString *string1 = [notification object];
+    NSLog(@"this is dataview controller, received notification is %@",string1);
+    //create content page.
+     [self loadViewControllers];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -29,20 +59,27 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.dataLabel.text = [self.dataObject description];
-    [webView loadHTMLString:dataObject
-                    baseURL:[NSURL URLWithString:@""]];
+    // self.dataLabel.text = [self.dataObject description];
+  
+    [self loadViewControllers];
     
+  //[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:dataObject]]];
+ 
+    
+
+   
 }
 
-- (IBAction)handle_setting_btn:(id)sender {
+-(void)loadViewControllers{
     
-    NSLog(@"setting entered");
+  //  NSLog(@"dataobjects=%@",dataObject);
+ [webView loadHTMLString:dataObject baseURL:[NSURL URLWithString:@""]];
 }
 
-- (IBAction)handle_home_btn:(id)sender {
+-(void)loadDetailViewControllers{
     
-    
-    
+    //  NSLog(@"dataobjects=%@",dataObject);
+    [webView loadHTMLString:dataObject baseURL:[NSURL URLWithString:@""]];
 }
+
 @end

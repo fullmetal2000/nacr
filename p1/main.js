@@ -1,16 +1,28 @@
-
-function myFunction()
+function myFunction(sitename)
 {
-    x=document.getElementById("demo");  // Find the element
-    x.innerHTML="Hello JavaScript!";    // Change the content
-        NativeBridge.call("NSLog", ["do you see fuck blue background ?"],function (response){
-                          if (response) {
-                          document.body.innerHTML+="<br/>You saw blue background, all is perfectly fine!<br/>";
-                          } else {
-                          document.body.innerHTML+="<br/>Are you sure ? Because you have to see blue!<br/>";
-                          }
-                          if (onSuccess)
-                          onSuccess();
-                          });
+    
+    NativeBridge.call("section", [sitename],function (response){
+                      if (response) {
+                      document.body.innerHTML+="<br/>You saw blue background, all is perfectly fine!<br/>";
+                      } else {
+                      document.body.innerHTML+="<br/>Are you sure ? Because you have to see blue!<br/>";
+                      }
+                      if (onSuccess)
+                      onSuccess();
+                      });
+    
+}
+function loadDetail(idx,img,title,author,time,article)
+{
+
+    NativeBridge.call("loadDetail", [idx,img,title,author,time,article],function (response){
+                      if (response) {
+                      document.body.innerHTML+="<br/>You saw blue background, all is perfectly fine!<br/>";
+                      } else {
+                      document.body.innerHTML+="<br/>Are you sure ? Because you have to see blue!<br/>";
+                      }
+                      if (onSuccess)
+                      onSuccess();
+                      });
     
 }

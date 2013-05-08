@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DataViewController : UIViewController
+#import "myWebView.h"
+@interface DataViewController : UIViewController{
+     NSString *string2;
+    
+}
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (strong, nonatomic) id dataObject;
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
-- (IBAction)handle_setting_btn:(id)sender;
-
-- (IBAction)handle_home_btn:(id)sender;
+@property (strong, nonatomic) IBOutlet myWebView *webView ;
 
 @end

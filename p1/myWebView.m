@@ -16,15 +16,16 @@
     if (self) {
         
         self.delegate = self;
-        self.opaque = NO;
+        self.opaque = YES;
         NSLog(@"mywebview init");
-     //   json = [ SBJSON new ];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"webview-document" ofType:@"html"];
-        [self loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
+        json = [ SBJSON new ];
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"webview-document" ofType:@"html"];
+//       [self loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
        }
     return self;
  
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -38,10 +39,10 @@
 //- (void)myLoadRequest:(NSURLRequest *)request{
 //    
 //    NSLog(@"ddfds");
-//  
-//         [self loadRequest:request];
-//
-//}
+//   self.delegate = self;
+//    
+//  [self loadRequest:request];
+//  }
 
 - (BOOL)webView:(UIWebView *)webView2
 shouldStartLoadWithRequest:(NSURLRequest *)request
@@ -53,17 +54,16 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     
      if ([requestString hasPrefix:@"js-frame:"]) {
         
-        NSLog(@"dddddd");
-        
+            
         NSArray *components = [requestString componentsSeparatedByString:@":"];
         
         NSString *function = (NSString*)[components objectAtIndex:1];
 //		int callbackId = [((NSString*)[components objectAtIndex:2]) intValue];
-//        NSString *argsAsString = [(NSString*)[components objectAtIndex:3]
-//                                  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *argsAsString = [(NSString*)[components objectAtIndex:3]
+                                  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //     
-        NSArray *args = nil;//(NSArray*)[json objectWithString:argsAsString error:nil];
-    NSLog(@"function,%@",function);
+        NSArray *args = (NSArray*)[json objectWithString:argsAsString error:nil];
+        NSLog(@"function,%@",function);
         [self handleCall:function callbackId:0 args:args];
         
        return NO;
@@ -88,22 +88,60 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         self.backgroundColor = [UIColor colorWithRed:[red floatValue] green:[green floatValue] blue:[blue floatValue] alpha:1.0];
     //    [self returnResult:callbackId args:nil];
         
-    } else if ([functionName isEqualToString:@"NSLog"]) {
+    } else if ([functionName isEqualToString:@"section"]) {
         
-      //  if ([args count]!=1) {
-            NSLog(@"this is object c code!");
-        //    return;
-      //  }
-        
+        if ([args count]!=1) {
+            NSLog(@" section selector take 1 arguments");
+            return;
+        }
+          // send notification to model controller.m
+        //post the notification
         NSString *message = (NSString*)[args objectAtIndex:0];
+        NSLog(@"message=%@",message);
         
-    //    alertCallbackId = callbackId;
-    ///    UIAlertView *alert=[[[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil] autorelease];
-   //     [alert show];
+        NSString *string1 = message;
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"testNotification" object:string1];
+        
         
     }
-    
-    
+    else if ([functionName isEqualToString:@"loadDetail"]) {
+        NSLog(@"this is load detain fun");
+        if ([args count]!=6) {
+            NSLog(@" section selector take 6 arguments");
+            return;
+        }
+        NSString *idx = (NSString*)[args objectAtIndex:0];
+        NSString *img = (NSString*)[args objectAtIndex:1];
+        NSString *title = (NSString*)[args objectAtIndex:2];
+        NSString *author = (NSString*)[args objectAtIndex:3];
+        NSString *time = (NSString*)[args objectAtIndex:4];
+        NSString *article = (NSString*)[args objectAtIndex:5];
+        
+        NSString *string1 = idx;
+         string1 = [[string1 stringByAppendingString:@"#30714_2012c#"] stringByAppendingString:img];
+        string1 = [[string1 stringByAppendingString:@"#30714_2012c#"] stringByAppendingString:title];
+        string1 = [[string1 stringByAppendingString:@"#30714_2012c#"] stringByAppendingString:author];
+        string1 = [[string1 stringByAppendingString:@"#30714_2012c#"] stringByAppendingString:time];
+        string1 = [[string1 stringByAppendingString:@"#30714_2012c#"] stringByAppendingString:article];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"detailNewsNotification" object:string1];
+        // do sth with the newsid, e.g. send notification to dataviewcontroller, try to create a new viewcontroller, and load detail artical.
+    }
+    else if ([functionName isEqualToString:@"goback"]) {
+
+        if ([args count]!=1) {
+            NSLog(@" section selector take 1 arguments");
+            return;
+        }
+          NSString *message = (NSString*)[args objectAtIndex:0];
+       
+        NSLog(@"goback idx: %@",message);
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"backToMainNotification" object:message];
+        // do sth with the newsid, e.g. send notification to dataviewcontroller, try to create a new viewcontroller, and load detail artical.
+    }
     
     else {
         NSLog(@"Unimplemented method '%@'",functionName);

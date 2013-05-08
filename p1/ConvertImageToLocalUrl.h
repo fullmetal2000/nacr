@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ConvertImageToLocalUrl : NSObject
+@interface ConvertImageToLocalUrl : NSObject{
+
+
+}
+
+-(NSArray *)saveImageToLocal:(NSArray*)imageArray;
 
 @end

@@ -9,7 +9,7 @@
 
 
  .div1  {
-     max-height:350px;      
+     height:345px;      
      width:543px;
 
     overflow: hidden;
@@ -24,30 +24,28 @@
     border-right-width: 1px; 
     
     float:left;
-    
-    
-  
-  
+     
 }
  .div2  {
-    max-height:300px;      
+    height:300px;      
     width:350px;
     float:top;
-   
-     
+     padding:10px;
     border-left-style: solid ;
     border-left-color: #C6C2C2;
     border-left-width: 1px; 
     
+    
 }
  .div3  {
-      max-height:300px;      
+      height:305px;      
       width:540px;
     float:left;
+    padding:10px;
 
 }   
  .div4  {
-      max-height:300px;      
+      height:300px;      
       width:350px;
     border-top-style: solid ;
     border-top-color: #C6C2C2;
@@ -56,6 +54,7 @@
     border-left-color: #C6C2C2;
     border-left-width: 1px; 
     float:top;
+    padding:10px;
 }   
  .div5  {
  visibility: hidden;
@@ -63,8 +62,8 @@
 
 
 #img1{
-max-width:270px;
-max-height:270px;
+width:270px;
+height:270px;
 float:left;
 padding:10px;
 
@@ -72,26 +71,26 @@ padding:10px;
 
 
 #img2{
-max-width:185px;
-max-height:300px;
-float:right;
+width:300px;
+height:230px;
+float: left;
 padding:10px;
 }
 
 #img3{
-max-width:250px;
-max-height:250px;
+width:240px;
+height:250px;
 float:right;
 padding:10px;
 }
 
 #img4{
-max-width:200px;
-max-height:300px;
-float:right;
+width:300px;
+height:240px;
+float: bottom;
 padding:10px;
-}
 
+}
 
 
 
@@ -100,6 +99,8 @@ position:fixed;
 top:30px;
 left:5px;
 float:top;
+padding:10px;
+
 
 }
 div.div2{
@@ -125,3 +126,25 @@ float:left;
 position:relative;
 top:-20px;
  }
+ 
+ 
+ //words:
+ 
+ #p1{
+ width:300px;
+height:200px;
+float:top;
+padding:10px;
+margin:10px;
+ }
+ 
+ 
+  #p3{
+width:260px;
+height:250px;
+float:left;
+padding:10px;
+ }
+  
+ 
+ 

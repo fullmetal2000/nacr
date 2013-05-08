@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GetDataFromServer : NSObject
+@interface GetDataFromServer : NSObject{
+
+    //Array of news records
+    NSArray *newsRecArray;
+    NSString * key;
+    NSString * url;
+    
+}
+-(NSArray *)getJasonData:(NSString*)serverUrl forkey:(NSString*)serverKey;
 
 @end

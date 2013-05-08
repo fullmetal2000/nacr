@@ -57,12 +57,11 @@ function promptTest(onSuccess) {
   }, 600);
 }
 
-//testcode:///////
+
 function myFunction()
 {
-    x=document.getElementById("demo");  // Find the element
-    x.innerHTML="Hello JavaScript!";    // Change the content
-    NativeBridge.call("NSLog", ["do you see fuck blue background ?"],function (response){
+
+    NativeBridge.call("topstory", ["do you see fuck blue background ?"],function (response){
                       if (response) {
                       document.body.innerHTML+="<br/>You saw blue background, all is perfectly fine!<br/>";
                       } else {
@@ -73,7 +72,7 @@ function myFunction()
                       });
 
 }
-///////////////
+
 
 window.addEventListener("load",function () {
   try {

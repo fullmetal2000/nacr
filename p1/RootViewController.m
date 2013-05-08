@@ -63,9 +63,50 @@
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
     
    // menuView.hidden=YES;
+    NSString * string1;
+    string2=string1;
+    //subscribe to the notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificatRecieved:)
+                                                 name:@"testNotification" object:string1];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(detailNewsNotificatRecieved:)
+                                                 name:@"detailNewsNotification" object:string1];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backToMainDataNotificatRecieved:)
+                                                 name:@"backToMainNotification" object:string1];
     
 }
+
+-(void)detailNewsNotificatRecieved:(NSNotification*)notification{
+
+//    NSString *string1 = [notification object];
+//    NSLog(@"this is root,detail news is %@",string1);
+//    
+    
+    //create content page.
+    [self goStartPage];
+}
+-(void)backToMainDataNotificatRecieved:(NSNotification*)notification{
+    
+    NSString *string1 = [notification object];
+    NSLog(@"this is root,detail news is %@",string1);
+    int idx=[string1 intValue];
+    [self goCurrentPage:idx];
+    //create content page.
+    
+}
+-(void)notificatRecieved:(NSNotification*)notification{
+    NSLog(@"Notificaiton was recieved from view 2");
+    NSString *string1 = [notification object];
+    NSLog(@"this is root,mystrig is %@",string1);
+    //create content page.
+    [self go2ndPage];
+ 
+}
+
 
 -(void)goStartPage
 {
@@ -76,7 +117,24 @@
     self.pageViewController.dataSource = self.modelController;
 
 }
-
+-(void)goCurrentPage:(int) idx
+{
+    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:idx storyboard:self.storyboard];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    
+    self.pageViewController.dataSource = self.modelController;
+    
+}
+-(void)go2ndPage
+{
+    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:1 storyboard:self.storyboard];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    
+    self.pageViewController.dataSource = self.modelController;
+    pageNum.text=[NSString stringWithFormat:@"%d",1];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -98,8 +156,9 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
     int idx=[_modelController indexOfViewController:pendingViewControllers[0]];
-    NSLog(@"%@",[NSString stringWithFormat:@"%d",idx]);
+    NSLog(@"currentpage is=%@",[NSString stringWithFormat:@"%d",idx]);
     pageNum.text=[NSString stringWithFormat:@"%d",idx];
+    currentpage = idx;
     pageCount=[NSString stringWithFormat:@"%d",[pendingViewControllers count]];
     
 }
