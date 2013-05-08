@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UIViewController <UIPageViewControllerDelegate>
+@interface RootViewController : UIViewController <UIPageViewControllerDelegate>{
+    
+    
+    IBOutlet UIView *menuView;
+   
+}
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
+- (IBAction)handle_home_btn:(id)sender;
+- (IBAction)handle_setting_btn:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UILabel *pageCount;
+@property (strong, nonatomic) IBOutlet UILabel *pageNum;
 @end

@@ -12,5 +12,9 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (strong, nonatomic) id dataObject;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+- (IBAction)handle_setting_btn:(id)sender;
+
+- (IBAction)handle_home_btn:(id)sender;
 
 @end

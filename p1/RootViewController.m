@@ -18,36 +18,63 @@
 
 @implementation RootViewController
 
-@synthesize modelController = _modelController;
+@synthesize modelController = _modelController,pageCount,pageNum;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    
+    // 1 curl effect:
+//    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    // 2 scroll effect:
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    
+    
     self.pageViewController.delegate = self;
 
-    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
-    NSArray *viewControllers = @[startingViewController];
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-
-    self.pageViewController.dataSource = self.modelController;
+//    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
+//    NSArray *viewControllers = @[startingViewController];
+//    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+//
+//    self.pageViewController.dataSource = self.modelController;
+    
+    [self goStartPage];
 
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
+    
+  //  [self.view addSubview:menuView];
 
     // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-    CGRect pageViewRect = self.view.bounds;
+   CGRect pageViewRect = self.view.bounds;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0);
     }
+    
     self.pageViewController.view.frame = pageViewRect;
+//    //if you want to whole page, use below:
+    //self.pageViewController.view.frame = [[self view] bounds];
 
     [self.pageViewController didMoveToParentViewController:self];
 
     // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
+    
+   // menuView.hidden=YES;
+    
+    
+}
+
+-(void)goStartPage
+{
+    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    
+    self.pageViewController.dataSource = self.modelController;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,12 +95,34 @@
 
 #pragma mark - UIPageViewController delegate methods
 
-/*
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
+    int idx=[_modelController indexOfViewController:pendingViewControllers[0]];
+    NSLog(@"%@",[NSString stringWithFormat:@"%d",idx]);
+    pageNum.text=[NSString stringWithFormat:@"%d",idx];
+    pageCount=[NSString stringWithFormat:@"%d",[pendingViewControllers count]];
     
 }
- */
+
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+
+
+//    int idx=[_modelController indexOfViewController:previousViewControllers[0]];
+//    NSLog(@"%@",[NSString stringWithFormat:@"%d",idx]);
+//    pageNum.text=[NSString stringWithFormat:@"%d",idx];
+//    pageCount=[NSString stringWithFormat:@"%d",[previousViewControllers count]];
+    
+    // below code not work
+//    int idx=[_modelController presentationIndexForPageViewController:self.pageViewController];
+//    int ct = [_modelController presentationCountForPageViewController:self.pageViewController];
+//    
+//    printf("%d    %d", idx,ct);
+//    
+
+}
+ 
 
 - (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
@@ -106,4 +155,27 @@
     return UIPageViewControllerSpineLocationMid;
 }
 
+- (IBAction)handle_home_btn:(id)sender {
+    
+    [self goStartPage];
+     pageNum.text=[NSString stringWithFormat:@"%d",0];
+}
+
+- (IBAction)handle_setting_btn:(id)sender {
+  
+    if ([sender isSelected]) {
+        
+        menuView.hidden=NO;
+        
+        
+        [sender setSelected:NO];
+    }
+        else {
+            menuView.hidden=YES;
+
+            [sender setSelected:YES];
+            
+        }
+    
+}
 @end

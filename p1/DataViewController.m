@@ -13,7 +13,7 @@
 @end
 
 @implementation DataViewController
-
+@synthesize webView, dataObject;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -30,6 +30,19 @@
 {
     [super viewWillAppear:animated];
     self.dataLabel.text = [self.dataObject description];
+    [webView loadHTMLString:dataObject
+                    baseURL:[NSURL URLWithString:@""]];
+    
 }
 
+- (IBAction)handle_setting_btn:(id)sender {
+    
+    NSLog(@"setting entered");
+}
+
+- (IBAction)handle_home_btn:(id)sender {
+    
+    
+    
+}
 @end
