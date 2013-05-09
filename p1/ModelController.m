@@ -415,7 +415,7 @@
             NSString *cssCode=@"";
             if ((i/5)%5==0){
                 //this is page1,
-                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle2" ofType:@"css" ];
+                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle1" ofType:@"css" ];
                 cssCode = [NSString stringWithContentsOfFile:filePath];
             }
             
@@ -426,18 +426,18 @@
             }
             if ((i/5)%5==2){
             
-                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle2" ofType:@"css" ];
+                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle3" ofType:@"css" ];
                 cssCode = [NSString stringWithContentsOfFile:filePath];
             }
             
             if ((i/5)%5==3){
                 
-                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle2" ofType:@"css" ];
+                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle4" ofType:@"css" ];
                 cssCode = [NSString stringWithContentsOfFile:filePath];
             }
             if ((i/5)%5==4){
                 
-                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle2" ofType:@"css" ];
+                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"recstyle5" ofType:@"css" ];
                 cssCode = [NSString stringWithContentsOfFile:filePath];
             }
             //cssCode=@"";
