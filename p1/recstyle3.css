@@ -53,8 +53,8 @@
 
 
 #img1{
-max-width:440px;
-max-height:440px;
+width:440px;
+height:440px;
 float:top;
 padding:10px;
 
@@ -62,22 +62,22 @@ padding:10px;
 
 
 #img2{
-max-width:190px;
-max-height:190px;
+width:190px;
+height:190px;
 float:right;
 padding:10px;
 }
 
 #img3{
-max-width:190px;
-max-height:190px;
+width:190px;
+height:190px;
 float:right;
 padding:10px;
 }
 
 #img4{
-max-width:200px;
-max-height:200px;
+width:200px;
+height:200px;
 float:right;
 padding:10px;
 }
